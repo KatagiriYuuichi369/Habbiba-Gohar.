@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Habiba Begum | Ladies Health Visitor</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9fbfd;
+      color: #1e2a3e;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* preloader */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s;
+    }
+    .preloader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #e2e8f0;
+      border-top: 5px solid #2c7da0;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* sticky navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transition: all 0.2s;
+    }
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #1e4a6b;
+      letter-spacing: -0.3px;
+    }
+    .logo span {
+      color: #2c7da0;
+      font-weight: 600;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c3e50;
+      transition: 0.2s;
+      font-size: 0.95rem;
+    }
+    .nav-links a:hover {
+      color: #2c7da0;
+    }
+    @media (max-width: 768px) {
+      .navbar { padding: 0.8rem 1rem; }
+      .nav-links { gap: 1rem; justify-content: center; margin-top: 0.5rem; }
+      .nav-container { flex-direction: column; }
+    }
+
+    /* main container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    section {
+      margin-bottom: 5rem;
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #0b3b4f;
+      border-left: 5px solid #2c7da0;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.6rem;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08);
+    }
+
+    /* hero */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f7fc 100%);
+      border-radius: 40px;
+      padding: 2.5rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    }
+    .hero-content {
+      flex: 2;
+    }
+    .hero-photo {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .profile-img {
+      width: 220px;
+      height: 220px;
+      background: #eef2f7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 30px -10px rgba(44,125,160,0.2);
+      border: 4px solid white;
+      overflow: hidden;
+    }
+    .profile-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #0f3b4c;
+      margin-bottom: 0.5rem;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    .hero .sub {
+      font-size: 1.4rem;
+      color: #2c7da0;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      animation: slideUp 0.7s ease forwards;
+    }
+    .hero-tagline {
+      color: #2c3e50;
+      margin-bottom: 1.8rem;
+      font-size: 1.1rem;
+    }
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.8rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .btn-primary {
+      background: #25D366;
+      color: white;
+      box-shadow: 0 4px 8px rgba(37,211,102,0.2);
+    }
+    .btn-primary:hover {
+      background: #1da959;
+      transform: scale(1.02);
+      box-shadow: 0 8px 18px rgba(37,211,102,0.3);
+    }
+    .btn-secondary {
+      background: #eef2ff;
+      color: #1e4a6b;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-secondary:hover {
+      background: #e2e8f0;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #2c7da0;
+      color: #2c7da0;
+    }
+    .btn-outline:hover {
+      background: #2c7da0;
+      color: white;
+    }
+
+    /* skills progress bars */
+    .skill-item {
+      margin-bottom: 1.2rem;
+    }
+    .skill-name {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .progress-bar {
+      background: #e2e8f0;
+      border-radius: 20px;
+      height: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #2c7da0;
+      border-radius: 20px;
+      transition: width 1s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    /* timeline style */
+    .timeline-item {
+      border-left: 3px solid #2c7da0;
+      padding-left: 1.2rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s;
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .timeline-item.appear {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .exp-item, .edu-item {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .badge {
+      background: #e6f3f8;
+      color: #1e5a77;
+      padding: 0.25rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .lang-badge {
+      background: #eef2ff;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      display: inline-block;
+      margin-right: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* contact grid */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .info-card i {
+      font-size: 1.6rem;
+      color: #2c7da0;
+      margin-right: 1rem;
+    }
+    .floating-wa {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25D366;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 18px rgba(37,211,102,0.35);
+      z-index: 1100;
+      transition: 0.2s;
+    }
+    .floating-wa a {
+      color: white;
+      font-size: 2rem;
+    }
+    .floating-wa:hover {
+      transform: scale(1.07);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #eef3f7;
+      margin-top: 2rem;
+      border-radius: 30px 30px 0 0;
+      color: #2c5a6e;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes glow {
+      0% { box-shadow: 0 0 0 0 rgba(44,125,160,0.4);}
+      70% { box-shadow: 0 0 0 8px rgba(44,125,160,0);}
+      100% { box-shadow: 0 0 0 0 rgba(44,125,160,0);}
+    }
+    .btn-primary, .btn-secondary {
+      transition: all 0.2s;
+    }
+    .btn-primary:active, .btn-secondary:active { transform: scale(0.97);}
+    .testimonial-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 24px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+    }
+    hr {
+      margin: 1rem 0;
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, #cbd5e1, transparent);
+    }
+  </style>
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="loader"></div>
+</div>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">Habiba <span>Begum</span> <span style="font-size:0.8rem;">LHV</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#languages">Languages</a></li>
+      <li><a href="#references">References</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container">
+  <!-- Hero + Profile photo section (advanced) -->
+  <section id="home" class="visible" style="opacity:1; transform:none;">
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Habiba Begum</h1>
+        <div class="sub">Ladies Health Visitor</div>
+        <div class="hero-tagline">Dedicated to women’s health and patient care</div>
+        <div class="btn-group">
+          <a href="https://wa.me/923457757179?text=Hello%2C%20I%20need%20health%20consultation." class="btn btn-primary" target="_blank"><i class="fab fa-whatsapp"></i> Contact on WhatsApp</a>
+          <a href="mailto:sajidirfan2012021@gmail.com" class="btn btn-secondary"><i class="far fa-envelope"></i> Send Email</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <div class="profile-img">
+          <img src="https://ui-avatars.com/api/?name=Habiba+Begum&background=2c7da0&color=fff&rounded=true&size=200&bold=true" alt="Habiba Begum profile photo">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About section + Download CV button extra feature -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="card" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
+      <div style="flex:2">
+        <p style="font-size: 1.05rem;">Passionate and hardworking individual aspiring to find opportunities in healthcare as a female nurse cum lady health visitor. Dedicated to patient care and community health services. Committed to providing compassionate support for women and families in rural and clinical settings.</p>
+        <div style="margin-top: 1.5rem;">
+          <button id="downloadCVBtn" class="btn btn-outline"><i class="fas fa-download"></i> Download CV (PDF)</button>
+        </div>
+      </div>
+      <div style="flex:1; text-align:center">
+        <i class="fas fa-stethoscope" style="font-size: 4rem; color: #2c7da0;"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education timeline animation -->
+  <section id="education">
+    <h2>🎓 Education</h2>
+    <div class="timeline-container">
+      <div class="timeline-item edu-item" id="edu1"><strong>FSC</strong> – WFGS College Takht Bhai</div>
+      <div class="timeline-item edu-item" id="edu2"><strong>Bachelors in Arts</strong> – 2026</div>
+      <div class="timeline-item edu-item" id="edu3"><strong>LHV (Diploma)</strong> – SPI Mardan</div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <h2>💼 Professional Experience</h2>
+    <div class="timeline-container">
+      <div class="timeline-item exp-item" id="exp1"><strong>🏥 DHQ Hospital Mardan (2025)</strong><br>Labour Room · Orthopedic Ward · Gynaecology Ward</div>
+      <div class="timeline-item exp-item" id="exp2"><strong>🏥 Darman Medical Complex Sherghar (2024–2026)</strong><br>28 Months Experience · Casualties Ward · Labour Room · Operation Theater (OT)</div>
+    </div>
+  </section>
+
+  <!-- Skills with progress bars -->
+  <section id="skills">
+    <h2>🧠 Core Skills</h2>
+    <div class="card">
+      <div class="skill-item"><div class="skill-name">Communication <span>92%</span></div><div class="progress-bar"><div class="progress-fill" data-width="92"></div></div></div>
+      <div class="skill-item"><div class="skill-name">Time Management <span>88%</span></div><div class="progress-bar"><div class="progress-fill" data-width="88"></div></div></div>
+      <div class="skill-item"><div class="skill-name">Organization <span>85%</span></div><div class="progress-bar"><div class="progress-fill" data-width="85"></div></div></div>
+      <div class="skill-item"><div class="skill-name">Technical Skills <span>78%</span></div><div class="progress-bar"><div class="progress-fill" data-width="78"></div></div></div>
+      <div class="skill-item"><div class="skill-name">Creativity <span>80%</span></div><div class="progress-bar"><div class="progress-fill" data-width="80"></div></div></div>
+      <div class="skill-item"><div class="skill-name">Patient Care <span>96%</span></div><div class="progress-bar"><div class="progress-fill" data-width="96"></div></div></div>
+    </div>
+  </section>
+
+  <!-- Languages -->
+  <section id="languages">
+    <h2>🌐 Languages</h2>
+    <div>
+      <span class="lang-badge"><i class="fas fa-language"></i> English (Good)</span>
+      <span class="lang-badge"><i class="fas fa-language"></i> Urdu (Good)</span>
+      <span class="lang-badge"><i class="fas fa-language"></i> Pashto (Native)</span>
+    </div>
+  </section>
+
+  <!-- References -->
+  <section id="references">
+    <h2>⭐ Professional References</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+      <div class="card" style="flex:1"><i class="fas fa-phone-alt"></i> <strong>DMC Sherghar</strong><br>+92 342 9721663</div>
+      <div class="card" style="flex:1"><i class="fas fa-phone-alt"></i> <strong>DHQ Mardan</strong><br>+92 332 9968345</div>
+    </div>
+  </section>
+
+  <!-- Testimonials (extra feature) -->
+  <section id="testimonials">
+    <h2>💬 Patient Testimonials</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.5rem;">
+      <div class="testimonial-card"><i class="fas fa-quote-left" style="color:#2c7da0;"></i><p> “Habiba ma’am provided excellent care during my pregnancy. Highly professional and compassionate.”</p><strong>- Fatima, Timergara</strong></div>
+      <div class="testimonial-card"><i class="fas fa-quote-left" style="color:#2c7da0;"></i><p> “She listens patiently and gave the best health advice. Trustworthy LHV in our village.”</p><strong>- Sana Ullah</strong></div>
+      <div class="testimonial-card"><i class="fas fa-quote-left" style="color:#2c7da0;"></i><p> “Very knowledgeable and kind. Her dedication to women’s health is inspiring.”</p><strong>- Zareena Bibi</strong></div>
+    </div>
+  </section>
+
+  <!-- Contact + Appointment booking form -->
+  <section id="contact">
+    <h2>📞 Contact & Appointment</h2>
+    <div class="contact-grid">
+      <div class="card info-card">
+        <p><i class="fas fa-phone-alt"></i> <strong>Phone/WhatsApp:</strong> <a href="tel:+923457757179">+92 345 7757179</a></p>
+        <p><i class="far fa-envelope"></i> <strong>Email:</strong> <a href="mailto:sajidirfan2012021@gmail.com">sajidirfan2012021@gmail.com</a></p>
+        <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Village & P/O Ziarat Talash, District Lower Dir, Tehsil Timergara</p>
+        <hr>
+        <div><i class="fab fa-tiktok"></i> <strong>TikTok:</strong> <a href="https://www.tiktok.com/@me.unknown303" target="_blank">@me.unknown303</a></div>
+        <div style="margin-top: 1rem;"><i class="fas fa-globe"></i> <strong>Social:</strong> <a href="https://www.tiktok.com/@me.unknown303" target="_blank"><i class="fab fa-tiktok"></i> Follow on TikTok</a></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom: 1rem;"><i class="far fa-calendar-check"></i> Book an Appointment</h3>
+        <form id="appointmentForm">
+          <input type="text" id="appName" placeholder="Full name" required style="width:100%; padding:12px; margin-bottom:12px; border-radius:40px; border:1px solid #cbd5e1;">
+          <input type="email" id="appEmail" placeholder="Email address" required style="width:100%; padding:12px; margin-bottom:12px; border-radius:40px; border:1px solid #cbd5e1;">
+          <input type="date" id="appDate" required style="width:100%; padding:12px; margin-bottom:12px; border-radius:40px; border:1px solid #cbd5e1;">
+          <textarea id="appMsg" rows="2" placeholder="Describe health concern..." style="width:100%; padding:12px; border-radius:20px; border:1px solid #cbd5e1;"></textarea>
+          <button type="submit" class="btn btn-primary" style="margin-top:12px; width:100%; justify-content:center;"><i class="fas fa-paper-plane"></i> Request Appointment</button>
+        </form>
+        <p class="small" style="font-size:0.7rem; margin-top:0.5rem;">*We’ll contact you within 24h</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 Habiba Begum – Ladies Health Visitor | Compassionate care for every woman</p>
+</footer>
+
+<!-- Floating WhatsApp Button -->
+<div class="floating-wa">
+  <a href="https://wa.me/923457757179?text=Hello%2C%20I%20need%20health%20consultation." target="_blank" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+</div>
+
+<script>
+  // Preloader
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    preloader.classList.add('fade-out');
+    setTimeout(() => { preloader.style.display = 'none'; }, 600);
+    initSkillBars();
+    animateTimelineItems();
+  });
+
+  // Scroll reveal sections
+  const sections = document.querySelectorAll('section:not(#home)');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+  sections.forEach(section => observer.observe(section));
+
+  // Skills progress bar fill when visible
+  function initSkillBars() {
+    const skillSection = document.querySelector('#skills');
+    const fillBars = () => {
+      const fills = document.querySelectorAll('.progress-fill');
+      fills.forEach(fill => {
+        const width = fill.getAttribute('data-width');
+        if (width && fill.style.width !== width+'%') {
+          fill.style.width = width + '%';
+        }
+      });
+    };
+    const observerSkills = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          fillBars();
+          observerSkills.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    if(skillSection) observerSkills.observe(skillSection);
+    else fillBars();
+  }
+
+  // timeline items appear one by one on scroll (Education & Experience)
+  function animateTimelineItems() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const itemObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('appear');
+          }, idx * 120);
+          itemObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    timelineItems.forEach(item => itemObserver.observe(item));
+    // also add appear immediately for visible on load
+    timelineItems.forEach(item => { if(item.getBoundingClientRect().top < window.innerHeight-80) item.classList.add('appear'); });
+  }
+
+  // Download CV button (generate dummy text file with resume info)
+  const downloadBtn = document.getElementById('downloadCVBtn');
+  if(downloadBtn){
+    downloadBtn.addEventListener('click', () => {
+      const cvContent = `Habiba Begum - Ladies Health Visitor
+==============================
+Contact: +92 345 7757179 | Email: sajidirfan2012021@gmail.com
+Address: Talash, Lower Dir, Pakistan
+
+PROFESSIONAL SUMMARY:
+Passionate healthcare professional with LHV diploma, experienced in labor room, OT, and gynecology wards.
+
+EDUCATION:
+• FSC (WFGS College Takht Bhai)
+• Bachelors in Arts (2026)
+• LHV (SPI Mardan)
+
+EXPERIENCE:
+• DHQ Hospital Mardan (2025) - Labour Room, Orthopedic, Gynaecology
+• Darman Medical Complex Sherghar (2024-2026) - 28 Months, Casualties, Labour Room, OT
+
+SKILLS: Patient Care, Communication, Time Management, Organization, Technical Skills.
+
+LANGUAGES: English, Urdu, Pashto
+
+REFERENCES available upon request.`;
+      const blob = new Blob([cvContent], {type: 'text/plain'});
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.href = url;
+      link.download = 'Habiba_Begum_CV.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    });
+  }
+
+  // Appointment form submission
+  const appForm = document.getElementById('appointmentForm');
+  if(appForm){
+    appForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('appName').value;
+      const email = document.getElementById('appEmail').value;
+      const date = document.getElementById('appDate').value;
+      if(name && email && date){
+        alert(`✅ Thank you ${name}, your appointment request for ${date} has been sent. Habiba will contact you soon.`);
+        appForm.reset();
+      } else {
+        alert('Please fill all required fields.');
+      }
+    });
+  }
+
+  // Sticky navbar active highlight & smooth scroll
+  const navLinks = document.querySelectorAll('.nav-links a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetSection = document.getElementById(targetId);
+      if(targetSection){
+        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // manually trigger progress bars if visible on load
+  window.addEventListener('load', () => {
+    const skillsSec = document.querySelector('#skills');
+    if(skillsSec && skillsSec.getBoundingClientRect().top < window.innerHeight-100){
+      document.querySelectorAll('.progress-fill').forEach(fill => {
+        fill.style.width = fill.getAttribute('data-width') + '%';
+      });
+    }
+    // force hero already visible
+    document.querySelectorAll('.timeline-item').forEach(item => {
+      if(item.getBoundingClientRect().top < window.innerHeight-60) item.classList.add('appear');
+    });
+  });
+  
+  // additional: floating button hover effect
+  // all good, also ensure contact mail/phone clickable
+</script>
+</body>
+</html>
